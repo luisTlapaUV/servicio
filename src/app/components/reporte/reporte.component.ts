@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-
+import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-reporte',
   templateUrl: './reporte.component.html',
@@ -13,13 +13,19 @@ export class ReporteComponent implements OnInit {
   //rta:Array<any>= [];
   data:Array<any>= [''];
   public lis:any =[]
+  estatus: boolean = false;
 
 
 
   constructor(private http:HttpClient) { }
 
   ngOnInit(): void {
-    this.http.get('http://10.30.3.248:9006/v1/cita/getCountCitas?porEstatus=false')
+    //this.http.get(environment.url+'/v1/cita/getCountCitas?porEstatus='+this.estatus)
+    //this.http.get(`${environment.url}/v1/cita/getCountCitas?porEstatus=${this.estatus}&fechaInicial=${this.fecha}`)
+
+    this.http.get(`${environment.url}/v1/cita/getCountCitas?porEstatus=${this.estatus}`)
+
+    
       .subscribe(date=> {
         this.conversion=date;
         //this.rta1= this.conversion.data;
