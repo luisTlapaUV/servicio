@@ -1,7 +1,28 @@
-<p>reporte works!</p>
+<h3>Reportes</h3>
+<div class="espacio">
+  <mat-form-field appearance="fill">
+    <mat-label>Ingresa el rango de busquedad</mat-label>
+    <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
+      <input id="start" matStartDate formControlName="start" placeholder="Fecha Inicial">
+      <input id="end" matEndDate formControlName="end" placeholder="Fecha Final">
+    </mat-date-range-input>
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-date-range-picker #picker></mat-date-range-picker>
 
-<div let rta of lis >
+    <mat-error *ngIf="range.controls.start.hasError('matStartDateInvalid')">Fecha inicial invalida</mat-error>
+    <mat-error *ngIf="range.controls.end.hasError('matEndDateInvalid')">Fecha final invalida</mat-error>
+  </mat-form-field>
+  <button mat-flat-button mat-button color="accent" class="btn-schedule-appointment" (click)="buscarPorFechas()">Buscar Reportes</button>
+  <p>Selected range: {{range.value | json}}</p>
+  <p>Selected range: {{start}}</p>
 
-  <h1>Total de citas: {{lis.data['totalCitas']}} </h1>
 
+
+</div>
+<div let rta of lis>
+  <h4>total de citas:{{lis.totalCitas}}</h4>
+</div>
+
+<div  *ngFor="let item of lis2" >
+  <h4>total de citas por Fecha:{{lis2.data.item}}</h4>
 </div>
