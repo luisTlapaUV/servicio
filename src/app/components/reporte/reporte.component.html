@@ -14,15 +14,32 @@
   </mat-form-field>
   <button mat-flat-button mat-button color="accent" class="btn-schedule-appointment" (click)="buscarPorFechas()">Buscar Reportes</button>
   <p>Selected range: {{range.value | json}}</p>
-  <p>Selected range: {{start}}</p>
-
-
+  <div let recorre of inicio>
+  <p id="varFecha">fecha: {{start | date:'yyyy-MM-dd'}}</p>
+  </div>
 
 </div>
 <div let rta of lis>
   <h4>total de citas:{{lis.totalCitas}}</h4>
+  <h4>{{p1}}</h4>
 </div>
 
-<div  *ngFor="let item of lis2" >
-  <h4>total de citas por Fecha:{{lis2.data.item}}</h4>
-</div>
+  <h3>CITAS PENDIENTE DE REVISIÓN: {{Pe_Revision}}</h3>
+  <h3>CITAS CANCELADA: {{cancelada}}</h3>
+  <h3>CITAS RESERVADA SIN DOCUMENTOS: {{Reservada_Sin_Documen}}</h3>
+  <h3>CITAS CANCELADA POR TIEMPO: {{Cancela_Por_Tiempo}}</h3>
+  <h3>FECHA: {{fecha}}</h3>
+
+ <!--<mat-form-field appearance="fill">
+    <mat-label>Input & change events</mat-label>
+    <input matInput [matDatepicker]="picker"
+           (dateInput)="addEvent('input', $event)" (dateChange)="addEvent('change', $event)">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+
+  <div class="example-events">
+    <div *ngFor="let e of events">{{e | date:'yyyy-MM-dd'}}</div>
+    <div>{{resultado}}</div>
+  </div>
+-->
