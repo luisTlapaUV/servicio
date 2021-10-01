@@ -4,7 +4,7 @@ import { environment } from 'src/environments/environment';
 import {FormGroup, FormControl} from '@angular/forms';
 import { ReporteFechas } from 'src/app/model/reportesFechas';
 import {MatDatepickerInputEvent} from '@angular/material/datepicker';
-import * as moment from 'moment';
+import { DatePipe } from '@angular/common';
 
 
 @Component({
@@ -23,8 +23,6 @@ export class ReporteComponent implements OnInit {
   public lis:any =[];
   public lis2:any =[];
   status: boolean = false;
-  //fechaInicio = this.range.value.start;
-  //fechaFin: any = this.end;
   end: string = "";
   start: string = "";
   p1:string="";
@@ -32,8 +30,6 @@ export class ReporteComponent implements OnInit {
   Pe_Revision:number = 0;
   Cancela_Por_Tiempo :number = 0;
   Reservada_Sin_Documen:number = 0;
-  public var: FormGroup | undefined;
-
 
   range = new FormGroup({
     start: new FormControl(),
@@ -43,14 +39,10 @@ export class ReporteComponent implements OnInit {
   reportes: ReporteFechas []=[];
   resultado: Array<any>= [];
   fecha_transformada: any;
-  fecha: Date | undefined;
-  trans: moment.Moment | undefined;
-   // cancelada: undefined,
-    //Re_Sin_Doc: undefined,
-    //Pen_Revision: undefined,
-    //Cance_Tiempo: undefined
- // };
-  constructor(private http:HttpClient) {
+  fecha: string | undefined;
+  fechaInicio: any;
+
+  constructor(private http:HttpClient, private datePipe: DatePipe) {
     ;
   }
 
@@ -63,17 +55,28 @@ export class ReporteComponent implements OnInit {
       console.log('Rango de fechas', this.range.value)
       console.log('Rango de fecha inicio', this.range.value.start)
       this.status=true
-      //this.start = this.range.value.start
-      console.log('Rango de start', this.start)
+      this.start = this.range.value.start
+
+      //this.trans = moment(this.start, 'yyyy-mm-dd')
+      //this.fecha = new Date(this.start).toLocaleDateString();
+      
+      this.fecha = new Date(this.start).toLocaleDateString();
+      this.fechaInicio = this.datePipe.transform(this.fecha,"yyyy-MM-dd")
+      //this.fechaFinal = this.datePipe.transform(this.fecha,"yyyy-MM-dd")
+      console.log('FECHA BIEN: ',this.fechaInicio)
+
+
+
+      console.log('fecha', this.fecha)
       console.log(this.range.value.date);
       //this.end = this.range.value.end
-      this.start ='2020-09-01'
+      //this.start ='2020-09-01'
       this.end = '2021-09-01'
-      this.obtenerValorFecha(this.status, this.start, this.end);
+      this.obtenerValorFecha(this.status, this.fechaInicio, this.end);
     }else{
       this.status = false
-      this.start ='2020-09-01'
-      this.end = '2021-09-01'
+     0// this.start ='2020-09-01'
+      //this.end = '2021-09-01'
       this.obtenerValor(this.status);
     }
   }
@@ -88,12 +91,13 @@ export class ReporteComponent implements OnInit {
     });
   }
 
-  obtenerValorFecha(status:boolean, start:string, end:string){
-    this.http.get(`${environment.url}/cita/getCountCitas?porEstatus=${this.status}&fechaInicial=${start}&fechaFinal=${end}`)
+  obtenerValorFecha(status:boolean, fechaInicio:string, fechaFinal:string){
+    this.http.get(`${environment.url}/cita/getCountCitas?porEstatus=${this.status}&fechaInicial=${this.fechaInicio}&fechaFinal=${fechaFinal}`)
         .subscribe(date2=> {
           this.conversion2=date2;
           //this.rta2= this.conversion.data;
           this.reportes=this.conversion2.data;
+          console.log(this.conversion2)
           this.cancelada = this.conversion2.data['CANCELADA']
           this.Pe_Revision = this.conversion2.data['PENDIENTE DE REVISIÓN']
           this.Cancela_Por_Tiempo = this.conversion2.data['CANCELADA POR TIEMPO']
@@ -101,10 +105,9 @@ export class ReporteComponent implements OnInit {
           //this.rta2= this.conversion2;
           //this.lis2 = this.rta2
           //this.p1 = this.conversion2.data.CANCELADA
-          this.fecha_transformada = this.range.value.start
-          this.trans = moment(this.fecha_transformada, 'yyyy-mm-dd')
-          this.fecha = new Date(this.fecha_transformada)
-          console.log(this.trans)
+          // -----this.fecha_transformada = this.range.value.start
+    
+          // ------console.log(this.trans)
           //console.log(this.reportes['CANCELADA']);
           console.log('datos',this.reportes);
           console.log(this.conversion2.data['CANCELADA']);
