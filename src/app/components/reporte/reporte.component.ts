@@ -56,13 +56,13 @@ export class ReporteComponent implements OnInit {
 
   fecha_transformada: any;
   fecha: string | undefined;
-  fecha2: string | undefined;
+  fecha2: Date | undefined;
   fechaStart: string | undefined;
   fechaEnd: string | undefined;
   fechaStart3: string | undefined;
   fechaEnd3: string | undefined;
   fechaInicio: any;
-  fechaFinal:any;
+  fechaFinal: any | undefined;
   fechaInicioProvee: any;
   fechaFinalProvee:any;
   fechaInicioProveeCita: any;
@@ -89,12 +89,13 @@ export class ReporteComponent implements OnInit {
       this.start = this.range.value.start
       this.end = this.range.value.end
       this.fecha = new Date(this.start).toLocaleDateString();
-      this.fecha2 = new Date(this.end).toLocaleDateString();
+     // this.fecha2 = new Date(this.end).toLocaleDateString();
+     this.fecha2 = new Date(this.end);
       this.fechaInicio = this.datePipe.transform(this.fecha,"yyyy-MM-dd")
-      this.fechaFinal = this.datePipe.transform(this.fecha2,"yyyy-MM-dd")
-      //console.log('FECHA FINAL: ',this.fechaInicio)
-      //console.log('FECHA INICIO: ',this.fechaFinal)
-      this.obtenerValorFecha(this.status, this.fechaInicio, this.fechaFinal);
+      this.fechaFinal = this.datePipe.transform(this.fecha2, "yyyy-MM-dd")
+      console.log('FECHA FINAL: ',this.fechaInicio)
+      console.log('FECHA INICIO: ',this.fechaFinal)
+     this.obtenerValorFecha(this.status, this.fechaInicio, this.fechaFinal);
     }else{
       this.status = false
       this.obtenerValor(this.status);
@@ -156,9 +157,9 @@ export class ReporteComponent implements OnInit {
     this.http.get(`${environment.url}/cita/countCitasProveedor?fechaInicial=${this.fechaInicioProveeCita}&fechaFinal=${this.fechaFinalProveeCita}`)
         .subscribe(date3=> {
           this.conversion3=date3;
-          console.log(this.conversion3)
+          //console.log(this.conversion3)
           this.datosCitasProveedores= this.conversion3.data ['MEDICAMENTOS SA. DE CV.']
-          console.log(this.datosCitasProveedores)
+          //console.log(this.datosCitasProveedores)
           //this.totalProveedores= this.conversion4.data['totalProveedores']
 
 
@@ -171,13 +172,13 @@ export class ReporteComponent implements OnInit {
       this.end3 = this.range.value.end
       this.fechaStart3 = new Date(this.start3).toLocaleDateString();
       this.fechaEnd3 = new Date(this.end3).toLocaleDateString();
-      console.log(this.fechaStart3)
-      console.log(this.fechaEnd3)
+      //console.log(this.fechaStart3)
+      //console.log(this.fechaEnd3)
 
       this.fechaInicioTotalProvee = this.datePipe.transform(this.fechaStart3,"yyyy-M-dd")
       this.fechaFinalTotalProvee = this.datePipe.transform(this.fechaEnd3,"yyyy-M-dd")
-      console.log(this.fechaFinalTotalProvee)
-      console.log(this.fechaInicioTotalProvee)
+      //console.log(this.fechaFinalTotalProvee)
+      //console.log(this.fechaInicioTotalProvee)
       this.obtenerTotalProveedoresCita(this.fechaInicioTotalProvee, this.fechaFinalTotalProvee);
 
     }else{
@@ -194,14 +195,13 @@ export class ReporteComponent implements OnInit {
     this.http.get(`${environment.url2}/proveedor/getTotalProveedores?fechaInicial=${this.fechaInicioTotalProvee}&fechaFinal=${this.fechaFinalTotalProvee}`)
         .subscribe(date4=> {
           this.conversion4=date4;
-          console.log(this.conversion4)
+          //console.log(this.conversion4)
 
           this.datos= this.conversion4.data.totalProveedores;
 
           this.totalProveedores= this.conversion4.data['totalProveedores']
-          console.log(this.totalProveedores)
-        });
-  }
+          //console.log(this.totalProveedores)
+        });  }
 
 }
 
