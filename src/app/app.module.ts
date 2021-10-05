@@ -12,6 +12,8 @@ import {MatInputModule} from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatNativeDateModule } from '@angular/material/core';
 import { DatePipe } from '@angular/common';
+import {MatExpansionModule} from '@angular/material/expansion';
+
 
 
 
@@ -34,6 +36,7 @@ import { DatePipe } from '@angular/common';
     FormsModule,
     ReactiveFormsModule,
     MatNativeDateModule,
+    MatExpansionModule
 
 
 

@@ -1,4 +1,5 @@
 <h3>Reportes</h3>
+
 <div class="espacio">
   <mat-form-field appearance="fill">
     <mat-label>Ingresa el rango de busquedad</mat-label>
@@ -12,34 +13,69 @@
     <mat-error *ngIf="range.controls.start.hasError('matStartDateInvalid')">Fecha inicial invalida</mat-error>
     <mat-error *ngIf="range.controls.end.hasError('matEndDateInvalid')">Fecha final invalida</mat-error>
   </mat-form-field>
-  <button mat-flat-button mat-button color="accent" class="btn-schedule-appointment" (click)="buscarPorFechas()">Buscar Reportes</button>
-  <p>Selected range: {{range.value | json}}</p>
+  <!--<p>Selected range: {{range.value | json}}</p>
   <div let recorre of inicio>
   <p id="varFecha">fecha: {{start | date:'yyyy-MM-dd'}}</p>
-  </div>
+  </div>-->
 
 </div>
-<div let rta of lis>
-  <h4>total de citas:{{lis.totalCitas}}</h4>
-  <h4>{{p1}}</h4>
-</div>
 
-  <h3>CITAS PENDIENTE DE REVISIÓN: {{Pe_Revision}}</h3>
-  <h3>CITAS CANCELADA: {{cancelada}}</h3>
-  <h3>CITAS RESERVADA SIN DOCUMENTOS: {{Reservada_Sin_Documen}}</h3>
-  <h3>CITAS CANCELADA POR TIEMPO: {{Cancela_Por_Tiempo}}</h3>
-  <h3>FECHA: {{fecha}}</h3>
+<mat-accordion>
+  <mat-expansion-panel hideToggle>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Citas
+      </mat-panel-title>
+      <mat-panel-description>
+        Descripcion de citas
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <button mat-flat-button mat-button color="accent" class="btn-schedule-appointment" (click)="buscarPorFechas()">Buscar Reportes de Citas</button>
 
- <!--<mat-form-field appearance="fill">
-    <mat-label>Input & change events</mat-label>
-    <input matInput [matDatepicker]="picker"
-           (dateInput)="addEvent('input', $event)" (dateChange)="addEvent('change', $event)">
-    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-datepicker #picker></mat-datepicker>
-  </mat-form-field>
+    <div let rta of lis>
+      <h4>total de citas:{{lis.totalCitas}}</h4>
+      <h4>{{p1}}</h4>
+    </div>
 
-  <div class="example-events">
-    <div *ngFor="let e of events">{{e | date:'yyyy-MM-dd'}}</div>
-    <div>{{resultado}}</div>
-  </div>
--->
+      <h3>CITAS PENDIENTE DE REVISIÓN: {{Pe_Revision}}</h3>
+      <h3>CITAS CANCELADA: {{cancelada}}</h3>
+      <h3>CITAS RESERVADA SIN DOCUMENTOS: {{Reservada_Sin_Documen}}</h3>
+      <h3>CITAS CANCELADA POR TIEMPO: {{Cancela_Por_Tiempo}}</h3>
+      <h3>FECHA: {{fecha}}</h3>
+
+
+  </mat-expansion-panel>
+  <mat-expansion-panel >
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Provedores
+      </mat-panel-title>
+      <mat-panel-description>
+        Descripcion de provedores
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <button mat-flat-button mat-button color="accent" class="btn-schedule-appointment" (click)="obtenerTotalProveedores()">Buscar Total de Proveedores</button>
+
+    <h4>Total de Proveedores: {{totalProveedores}}</h4>
+    <!--<div let datos of datos2>
+      <h4>Total de Proveedores: {{datos2.totalProveedores}}</h4>
+    </div> -->
+
+
+  </mat-expansion-panel>
+
+
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Citas Por Proveedores
+      </mat-panel-title>
+      <mat-panel-description>
+        Descripcion de provedores 2
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <button mat-flat-button mat-button color="accent" class="btn-schedule-appointment" (click)="obtenerTotal()">Buscar Citas por Proveedor</button>
+    <h4>Total de citas por Proveedores: {{datosCitasProveedores}}</h4>
+  </mat-expansion-panel>
+
+
