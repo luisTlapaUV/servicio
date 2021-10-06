@@ -127,17 +127,19 @@ export class ReporteComponent implements OnInit {
           this.Pe_Revision = this.conversion2.data['PENDIENTE DE REVISIÓN']
           this.Cancela_Por_Tiempo = this.conversion2.data['CANCELADA POR TIEMPO']
           this.Reservada_Sin_Documen = this.conversion2.data['RESERVADA SIN DOCUMENTOS']
-          this.prueba = this.rta2.map;
+          
 
           console.log(this.cancelada)
           console.log(this.Pe_Revision)
           console.log(this.Cancela_Por_Tiempo)
           console.log(this.Reservada_Sin_Documen)
-          console.log(this.rta2[0])
+          console.log(this.rta2)
 
           for (var i in this.rta2) {
-            console.log(i); // a, b, c
+            console.log(i + ":" +this.rta2[i]) ; 
          }
+
+        
 
 
     });
