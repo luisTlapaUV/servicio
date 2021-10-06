@@ -55,12 +55,12 @@ export class ReporteComponent implements OnInit {
 
 
   fecha_transformada: any;
-  fecha: string | undefined;
+  fecha: Date | undefined;
   fecha2: Date | undefined;
-  fechaStart: string | undefined;
-  fechaEnd: string | undefined;
-  fechaStart3: string | undefined;
-  fechaEnd3: string | undefined;
+  fechaStart: Date | undefined;
+  fechaEnd: Date | undefined;
+  fechaStart3: Date | undefined;
+  fechaEnd3: Date| undefined;
   fechaInicio: any;
   fechaFinal: any | undefined;
   fechaInicioProvee: any;
@@ -69,10 +69,11 @@ export class ReporteComponent implements OnInit {
   fechaFinalProveeCita:any;
   fechaInicioTotalProvee: any;
   fechaFinalTotalProvee:any;
-
+  dato:any = [0][1];
 
   /////////////////////////////////////
   panelOpenState = false;
+  prueba:any
   ////////////////////////////////////
 
 
@@ -88,13 +89,14 @@ export class ReporteComponent implements OnInit {
       this.status=true
       this.start = this.range.value.start
       this.end = this.range.value.end
-      this.fecha = new Date(this.start).toLocaleDateString();
-     // this.fecha2 = new Date(this.end).toLocaleDateString();
-     this.fecha2 = new Date(this.end);
+
+      this.fecha = new Date(this.start);
+      this.fecha2 = new Date(this.end);
+
       this.fechaInicio = this.datePipe.transform(this.fecha,"yyyy-MM-dd")
       this.fechaFinal = this.datePipe.transform(this.fecha2, "yyyy-MM-dd")
-      console.log('FECHA FINAL: ',this.fechaInicio)
-      console.log('FECHA INICIO: ',this.fechaFinal)
+      //console.log('FECHA FINAL: ',this.fechaInicio)
+      //console.log('FECHA INICIO: ',this.fechaFinal)
      this.obtenerValorFecha(this.status, this.fechaInicio, this.fechaFinal);
     }else{
       this.status = false
@@ -119,29 +121,41 @@ export class ReporteComponent implements OnInit {
           this.rta2 = this.conversion2.data
           this.lis2 = this.rta2
           //console.log(this.conversion2)
+
+
           this.cancelada = this.conversion2.data['CANCELADA']
           this.Pe_Revision = this.conversion2.data['PENDIENTE DE REVISIÓN']
           this.Cancela_Por_Tiempo = this.conversion2.data['CANCELADA POR TIEMPO']
           this.Reservada_Sin_Documen = this.conversion2.data['RESERVADA SIN DOCUMENTOS']
+          this.prueba = this.rta2.map;
 
-          /*
-          console.log(this.conversion2.data['CANCELADA']);
-          console.log(this.conversion2.data['PENDIENTE DE REVISIÓN']);
-          console.log(this.conversion2.data['CANCELADA POR TIEMPO']);
-          console.log(this.conversion2.data['RESERVADA SIN DOCUMENTOS']);*/
+          console.log(this.cancelada)
+          console.log(this.Pe_Revision)
+          console.log(this.Cancela_Por_Tiempo)
+          console.log(this.Reservada_Sin_Documen)
+          console.log(this.rta2[0])
+
+          for (var i in this.rta2) {
+            console.log(i); // a, b, c
+         }
+
+
     });
   }
   obtenerTotal(){
     if(this.range.controls.start.valid && this.range.controls.end.valid && this.range.value.start != null && this.range.value.end != null){
       this.start2 = this.range.value.start
       this.end2 = this.range.value.end
-      this.fechaStart = new Date(this.start2).toLocaleDateString();
-      this.fechaEnd = new Date(this.end2).toLocaleDateString();
+      this.fechaStart = new Date(this.start2);
+      this.fechaEnd = new Date(this.end2);
 
       this.fechaInicioProveeCita = this.datePipe.transform(this.fechaStart,"yyyy-MM-dd")
       this.fechaFinalProveeCita = this.datePipe.transform(this.fechaEnd,"yyyy-MM-dd")
       //console.log(this.fechaStart)
       //this.obtenerTotalProveedores(this.fechaInicioProvee, this.fechaFinalProvee);
+
+
+
       this.obtenerCitasProveedores(this.fechaInicioProveeCita, this.fechaFinalProveeCita)
     }else{
       //window.alert("Se necesita ingresar el rango de fechas de busqueda");
@@ -152,6 +166,7 @@ export class ReporteComponent implements OnInit {
       })
     }
   }
+
 
   obtenerCitasProveedores(fechaInicio:string, fechaFinal:string){
     this.http.get(`${environment.url}/cita/countCitasProveedor?fechaInicial=${this.fechaInicioProveeCita}&fechaFinal=${this.fechaFinalProveeCita}`)
@@ -170,8 +185,8 @@ export class ReporteComponent implements OnInit {
     if(this.range.controls.start.valid && this.range.controls.end.valid && this.range.value.start != null && this.range.value.end != null){
       this.start3 = this.range.value.start
       this.end3 = this.range.value.end
-      this.fechaStart3 = new Date(this.start3).toLocaleDateString();
-      this.fechaEnd3 = new Date(this.end3).toLocaleDateString();
+      this.fechaStart3 = new Date(this.start3);
+      this.fechaEnd3 = new Date(this.end3);
       //console.log(this.fechaStart3)
       //console.log(this.fechaEnd3)
 
