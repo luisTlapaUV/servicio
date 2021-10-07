@@ -31,6 +31,9 @@ export class ReporteComponent implements OnInit {
   public lis:any =[];
   public lis2:any =[];
   public datos2:any =[];
+  public arrayprueba:any =[];
+  public result:any =[];
+  public result2:any =[];
   status: boolean = false;
   end: string = "";
   start: string = "";
@@ -45,6 +48,8 @@ export class ReporteComponent implements OnInit {
   Reservada_Sin_Documen:number = 0;
   totalProveedores:number =0;
   totalCitas:number =0;
+  t: string =""
+  val:any;
 
 
   range = new FormGroup({
@@ -70,6 +75,9 @@ export class ReporteComponent implements OnInit {
   fechaInicioTotalProvee: any;
   fechaFinalTotalProvee:any;
   dato:any = [0][1];
+  valor2:string =""
+  valor:string =""
+  vale:Array<any>=[]
 
   /////////////////////////////////////
   panelOpenState = false;
@@ -122,12 +130,13 @@ export class ReporteComponent implements OnInit {
           this.lis2 = this.rta2
           //console.log(this.conversion2)
 
+          this.arrayprueba.splice(0, this.arrayprueba.length);
 
           this.cancelada = this.conversion2.data['CANCELADA']
           this.Pe_Revision = this.conversion2.data['PENDIENTE DE REVISIÓN']
           this.Cancela_Por_Tiempo = this.conversion2.data['CANCELADA POR TIEMPO']
           this.Reservada_Sin_Documen = this.conversion2.data['RESERVADA SIN DOCUMENTOS']
-          
+
 
           console.log(this.cancelada)
           console.log(this.Pe_Revision)
@@ -135,12 +144,16 @@ export class ReporteComponent implements OnInit {
           console.log(this.Reservada_Sin_Documen)
           console.log(this.rta2)
 
-          for (var i in this.rta2) {
-            console.log(i + ":" +this.rta2[i]) ; 
-         }
+          for (var j in this.rta2) {
+            this.valor = j
+            this.valor2= this.rta2[j]
+            this.prueba = (j+ ":" + this.rta2[j])
+            this.arrayprueba.push(this.prueba)
+            console.log(this.prueba) ;
+          }
 
-        
-
+          //console.log(this.arrayprueba)
+          //this.arrayprueba = event.keyCode
 
     });
   }

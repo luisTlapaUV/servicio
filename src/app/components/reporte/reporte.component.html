@@ -13,10 +13,7 @@
     <mat-error *ngIf="range.controls.start.hasError('matStartDateInvalid')">Fecha inicial invalida</mat-error>
     <mat-error *ngIf="range.controls.end.hasError('matEndDateInvalid')">Fecha final invalida</mat-error>
   </mat-form-field>
-  <!--<p>Selected range: {{range.value | json}}</p>
-  <div let recorre of inicio>
-  <p id="varFecha">fecha: {{start | date:'yyyy-MM-dd'}}</p>
-  </div>-->
+
 
 </div>
 
@@ -32,16 +29,21 @@
     </mat-expansion-panel-header>
     <button mat-flat-button mat-button color="accent" class="btn-schedule-appointment" (click)="buscarPorFechas()">Buscar Reportes de Citas</button>
 
-    <div let rta of lis>
-      <h4>total de citas:{{lis.totalCitas}}</h4>
-      <h4>{{p1}}</h4>
-    </div>
+    <h4>total de citas:{{lis.totalCitas}}</h4>
 
-      <h3>CITAS PENDIENTE DE REVISIÓN: {{Pe_Revision}}</h3>
-      <h3>CITAS CANCELADA: {{cancelada}}</h3>
-      <h3>CITAS RESERVADA SIN DOCUMENTOS: {{Reservada_Sin_Documen}}</h3>
-      <h3>CITAS CANCELADA POR TIEMPO: {{Cancela_Por_Tiempo}}</h3>
-      <h3>FECHA: {{fecha}}</h3>
+
+    <tr *ngFor="let item of arrayprueba">
+
+      <mat-list>
+        <mat-list-item>{{item}}</mat-list-item>
+        <mat-divider></mat-divider>
+      </mat-list>
+      </tr>
+
+
+
+
+
 
 
   </mat-expansion-panel>
